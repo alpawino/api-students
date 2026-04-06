@@ -34,12 +34,13 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-		print(request.form) # Esto imprimirá en tu terminal lo que Flask está recibiendo
-		data = request.get_json()
-		firstname = data.get("firstname")
-		lastname = data.get("lastname")
-		gender = data.get("gender")
-		age = data.get("age")
+		print("Formulario recibido:", request.form) 
+    
+		
+		firstname = request.form.get("firstname")
+		lastname = request.form.get("lastname")
+		gender = request.form.get("gender")
+		age = request.form.get("age")
 		#SQL  query to INSERT a student INTO our database
 		sql = """INSERT INTO students (firstname, lastname, gender, age)
 				 VALUES (?, ?, ?, ?) """
