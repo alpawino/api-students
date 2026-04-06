@@ -34,7 +34,7 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-		if request.method == "POST":
+		
 		# Usamos .get para que NO de error 400 si falta algo
 		firstname = request.form.get("firstname")
 		lastname = request.form.get("lastname")
