@@ -34,10 +34,15 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-		firstname = request.form["firstname"]
-		lastname = request.form["lastname"]
-		gender = request.form["gender"]
-		age  = request.form["age"]
+		# Cambia esto:
+		# firstname = request.form["firstname"]
+
+		# Por esto:
+		data = request.get_json()
+		firstname = data.get("firstname")
+		lastname = data.get("lastname")
+		gender = data.get("gender")
+		age = data.get("age")
 		#SQL  query to INSERT a student INTO our database
 		sql = """INSERT INTO students (firstname, lastname, gender, age)
 				 VALUES (?, ?, ?, ?) """
