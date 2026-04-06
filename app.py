@@ -34,20 +34,27 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-		print("Formulario recibido:", request.form) 
-    
-		
+		# 1. Intentamos capturar los datos del formulario (form-data)
+		# Usamos .get() para que si no existe, devuelva None en vez de dar error 400
 		firstname = request.form.get("firstname")
 		lastname = request.form.get("lastname")
 		gender = request.form.get("gender")
-		age = request.form.get("age")
-		#SQL  query to INSERT a student INTO our database
+		age  = request.form.get("age")
+
+		# 2. Imprimimos en la terminal de AWS para ver qué llegó
+		print(f"DEBUG: Datos recibidos -> {firstname}, {lastname}, {gender}, {age}")
+
+		# 3. Validación simple: si falta el nombre, avisamos
+		if not firstname:
+			return "Error: Falta el campo 'firstname' en el form-data", 400
+
+		# SQL query para INSERT
 		sql = """INSERT INTO students (firstname, lastname, gender, age)
 				 VALUES (?, ?, ?, ?) """
 
 		cursor = cursor.execute(sql, (firstname, lastname, gender, age))
 		conn.commit()
-		return f"Student with id: {cursor.lastrowid} created successfully"
+		return f"Student with id: {cursor.lastrowid} created successfully", 201
 
 #a route with all the neccesary request methods for a single student	
 @app.route('/student/<int:id>',methods=[ "GET", "PUT", "DELETE" ])
