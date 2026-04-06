@@ -35,17 +35,20 @@ def students():
 #createing our POST request for a student
 	if request.method == "POST":
 		
-		firstname = request.form["firstname"]
-		lastname = request.form["lastname"]
-		gender = request.form["gender"]
-		age  = request.form["age"]
-		#SQL  query to INSERT a student INTO our database
+		firstname = request.form.get("firstname")
+		lastname = request.form.get("lastname")
+		gender = request.form.get("gender")
+		age  = request.form.get("age")
+
+		# ESTO DEBE IMPRIMIRSE SÍ O SÍ EN TU TERMINAL NEGRA
+		print(f"DEBUG -> Recibido: {firstname}, {lastname}")
+
 		sql = """INSERT INTO students (firstname, lastname, gender, age)
 				 VALUES (?, ?, ?, ?) """
 
 		cursor = cursor.execute(sql, (firstname, lastname, gender, age))
 		conn.commit()
-		return f"Student with id: {cursor.lastrowid} created successfully"
+		return f"Student with id: {cursor.lastrowid} created successfully", 201
 
 #a route with all the neccesary request methods for a single student	
 @app.route('/student/<int:id>',methods=[ "GET", "PUT", "DELETE" ])
