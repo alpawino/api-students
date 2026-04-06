@@ -34,21 +34,16 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-		# 1. Intentamos capturar los datos del formulario (form-data)
-		# Usamos .get() para que si no existe, devuelva None en vez de dar error 400
+		if request.method == "POST":
+		# Usamos .get para que NO de error 400 si falta algo
 		firstname = request.form.get("firstname")
 		lastname = request.form.get("lastname")
 		gender = request.form.get("gender")
 		age  = request.form.get("age")
 
-		# 2. Imprimimos en la terminal de AWS para ver qué llegó
-		print(f"DEBUG: Datos recibidos -> {firstname}, {lastname}, {gender}, {age}")
+		# ESTO DEBE IMPRIMIRSE SÍ O SÍ EN TU TERMINAL NEGRA
+		print(f"DEBUG -> Recibido: {firstname}, {lastname}")
 
-		# 3. Validación simple: si falta el nombre, avisamos
-		if not firstname:
-			return "Error: Falta el campo 'firstname' en el form-data", 400
-
-		# SQL query para INSERT
 		sql = """INSERT INTO students (firstname, lastname, gender, age)
 				 VALUES (?, ?, ?, ?) """
 
