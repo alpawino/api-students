@@ -47,6 +47,7 @@ def students():
 		conn.commit()
 		return f"Student with id: {cursor.lastrowid} created successfully"
 
+
 #a route with all the neccesary request methods for a single student	
 @app.route('/student/<int:id>',methods=[ "GET", "PUT", "DELETE" ])
 def student(id):
