@@ -34,7 +34,7 @@ def students():
 			return jsonify(students)
 #createing our POST request for a student
 	if request.method == "POST":
-
+		print(request.form) # Esto imprimirá en tu terminal lo que Flask está recibiendo
 		data = request.get_json()
 		firstname = data.get("firstname")
 		lastname = data.get("lastname")
